@@ -1,0 +1,15 @@
+com/dev/featureflag/dto/EvaluationResponse$EvaluationResponseBuilder.class
+com/dev/featureflag/FeatureFlagApplication.class
+com/dev/featureflag/security/JwtFilter.class
+com/dev/featureflag/dto/FlagResponse$FlagResponseBuilder.class
+com/dev/featureflag/entity/Override.class
+com/dev/featureflag/service/EvaluationService.class
+com/dev/featureflag/repository/FlagRepository.class
+com/dev/featureflag/repository/OverrideRepository.class
+com/dev/featureflag/dto/EvaluationResponse.class
+com/dev/featureflag/entity/Flag.class
+com/dev/featureflag/dto/FlagRequest.class
+com/dev/featureflag/service/FlagService.class
+com/dev/featureflag/dto/FlagRequest$FlagRequestBuilder.class
+com/dev/featureflag/controller/FlagController.class
+com/dev/featureflag/dto/FlagResponse.class
