@@ -5,60 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="995386aa-bee8-4325-8aa1-9c251811c96a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HELP.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/FeatureFlagApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/config/AllConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/config/CustomUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/config/JwtAuthFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/config/JwtService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/controller/FlagController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/entity/UserDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/repository/FlagRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/repository/OverrideRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/repository/UserRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/service/EvaluationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/service/FlagService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/FeatureFlagApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/controller/FlagController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/dto/EvaluationResponse$EvaluationResponseBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/dto/EvaluationResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/dto/FlagRequest$FlagRequestBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/dto/FlagRequest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/dto/FlagResponse$FlagResponseBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/dto/FlagResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/entity/Flag.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/entity/Override.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/repository/FlagRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/repository/OverrideRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/security/JwtFilter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/service/EvaluationService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/dev/featureflag/service/FlagService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Controller/FeaturesFlagController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/DemoApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Dto/FlagFeaturesDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/dto/FlagRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Dto/FlagFeaturesResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/entity/Flag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Dto/OverrideFlagsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/dto/EvaluationResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Entity/FlagFeaturesEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/dto/FlagResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Entity/OverrideFlagsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/entity/Override.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Repository/FlagFeaturesRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Repository/OverrideRepo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/flagFeature/Service/FlagService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/flagFeature/DemoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/dev/featureflag/FeatureFlagApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/dto/auth/LoginReqDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/dto/auth/SignupReqDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/service/EvaluationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dev/featureflag/service/EvaluationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,20 +46,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

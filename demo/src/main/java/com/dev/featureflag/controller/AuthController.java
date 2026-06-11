@@ -1,6 +1,7 @@
 package com.dev.featureflag.controller;
 
 import com.dev.featureflag.config.JwtService;
+import com.dev.featureflag.dto.auth.LoginReqDto;
 import com.dev.featureflag.entity.UserDetails;
 import com.dev.featureflag.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -39,16 +40,13 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("token", token));
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
+    public ResponseEntity<?> login(@RequestBody LoginReqDto request) {
+
+    }
+
+    @PostMapping("/auth/signup")
     public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-        UserDetails user = userRepo.findByUsername(request.get("username"))
-                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!passwordEncoder.matches(request.get("password"), user.getPassword())) {
-            return ResponseEntity.badRequest().body("Invalid credentials");
-        }
-
-        String token = jwtService.generateToken(user);
-        return ResponseEntity.ok(Map.of("token", token));
     }
 }
