@@ -15,6 +15,8 @@ com\dev\featureflag\repository\FlagRepository.class
 com\dev\featureflag\entity\Flag.class
 com\dev\featureflag\dto\auth\SignupResponseDTO.class
 com\dev\featureflag\dto\auth\SignupReqDto$SignupReqDtoBuilder.class
+com\dev\featureflag\dto\OverrideRequest.class
+com\dev\featureflag\dto\OverrideRequest$OverrideRequestBuilder.class
 com\dev\featureflag\dto\auth\LoginResponseDto.class
 com\dev\featureflag\entity\Override.class
 com\dev\featureflag\repository\UserRepo.class
