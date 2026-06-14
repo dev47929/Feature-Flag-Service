@@ -1,10 +1,12 @@
 package com.dev.featureflag.config;
 
-import com.dev.featureflag.entity.UserDetails;
+import com.dev.featureflag.entity.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -21,7 +23,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(UserDetails user) {
+    public String generateToken(User user) {
         return Jwts.builder()
                 .subject(user.getUsername())
                 .claim("userId", user.getId().toString())
@@ -38,5 +40,20 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
         return claims.getSubject();
+    }
+
+    public boolean isValid(UserDetails userDetails, String token) {
+        String username = userDetails.getUsername();
+        String usernameFromToken = getUsernameFromToken(token);
+        return usernameFromToken.equals(username) && !isTokenExpired(token);
+    }
+
+    private boolean isTokenExpired(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(getSecretKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        return claims.getExpiration().before(new Date());
     }
 }

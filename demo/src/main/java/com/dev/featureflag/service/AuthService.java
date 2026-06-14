@@ -5,14 +5,17 @@ import com.dev.featureflag.dto.auth.LoginReqDto;
 import com.dev.featureflag.dto.auth.LoginResponseDto;
 import com.dev.featureflag.dto.auth.SignupReqDto;
 import com.dev.featureflag.dto.auth.SignupResponseDTO;
-import com.dev.featureflag.entity.UserDetails;
+import com.dev.featureflag.entity.User;
 import com.dev.featureflag.repository.UserRepo;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -28,10 +31,15 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public SignupResponseDTO signup(SignupReqDto signupRequestDTO) {
-        if (userRepo.findByUsername(signupRequestDTO.getUsername()).isPresent()) {
+        if (userRepo.existsByUsername(signupRequestDTO.getUsername())) {
             throw new IllegalArgumentException("Username is not available");
         }
-        UserDetails newUser = new UserDetails();
+
+        if (userRepo.existsByEmail(signupRequestDTO.getEmail())) {
+            throw new IllegalArgumentException("Email is already registered");
+        }
+
+        User newUser = new User();
         newUser.setUsername(signupRequestDTO.getUsername());
         newUser.setPassword(passwordEncoder.encode(signupRequestDTO.getPassword()));
         newUser.setName(signupRequestDTO.getName());
@@ -41,26 +49,12 @@ public class AuthService {
         return new SignupResponseDTO(signupRequestDTO.getUsername(), signupRequestDTO.getEmail());
     }
 
-    public LoginResponseDto login(LoginReqDto loginRequestDTO, HttpServletResponse response) {
-        UserDetails user;
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequestDTO.getUsername(),
-                            loginRequestDTO.getPassword()
-                    )
-            );
-            user = (UserDetails) authentication.getPrincipal();
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid username or password");
-        }
-        String token = jwtService.generateToken(user);
-        ResponseCookie cookie = ResponseCookie.from("token", token)
-                .path("/")
-                .maxAge(24 * 60 * 60)
-                .sameSite("Strict")
-                .build();
-        response.addHeader("Set-Cookie", cookie.toString());
-        return new LoginResponseDto(token, user.getId());
+    public LoginResponseDto login(LoginReqDto loginRequestDTO, HttpServletRequest request) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword()));
+        User user = (User) authentication.getPrincipal();
+        return new LoginResponseDto(jwtService.generateToken(user), user.getId());
     }
+
+
+
 }

@@ -2,8 +2,13 @@ package com.dev.featureflag.controller;
 
 import com.dev.featureflag.config.JwtService;
 import com.dev.featureflag.dto.auth.LoginReqDto;
-import com.dev.featureflag.entity.UserDetails;
+import com.dev.featureflag.dto.auth.LoginResponseDto;
+import com.dev.featureflag.dto.auth.SignupReqDto;
+import com.dev.featureflag.dto.auth.SignupResponseDTO;
+import com.dev.featureflag.entity.User;
 import com.dev.featureflag.repository.UserRepo;
+import com.dev.featureflag.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
 
+    private final AuthService authService;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -27,7 +33,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Username already exists");
         }
 
-        UserDetails user = new UserDetails();
+        User user = new User();
         user.setUsername(request.get("username"));
         user.setPassword(passwordEncoder.encode(request.get("password")));
         user.setName(request.get("name"));
@@ -41,12 +47,12 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> login(@RequestBody LoginReqDto request) {
-
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginReqDto request, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.ok(authService.login(request, httpServletRequest));
     }
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-
+    public ResponseEntity<SignupResponseDTO> signup(@RequestBody SignupReqDto request) {
+        return ResponseEntity.ok(authService.signup(request));
     }
 }

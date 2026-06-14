@@ -1,13 +1,14 @@
 package com.dev.featureflag.config;
 
-import com.dev.featureflag.entity.UserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -32,13 +33,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = header.substring(7);
         String username = jwtService.getUsernameFromToken(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = (UserDetails) customUserDetailsService.loadUserByUsername(username);
-
+            UserDetails userDetails =  customUserDetailsService.loadUserByUsername(username);
+            if(jwtService.isValid(userDetails , token)){
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities()
                     );
             SecurityContextHolder.getContext().setAuthentication(authToken);
+            }else throw new BadCredentialsException("Invalid token");
         }
         filterChain.doFilter(request, response);
     }
