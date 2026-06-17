@@ -20,12 +20,7 @@ public class EvaluationService {
     public EvaluationResponse evaluate(String flagName, String userId) {
         Flag flag = flagRepository.findByName(flagName);
         if (flag == null) {
-            return EvaluationResponse.builder()
-                    .flagName(flagName)
-                    .enabled(false)
-                    .userId(userId)
-                    .reason("Flag not found")
-                    .build();
+            throw new IllegalArgumentException("Invalid flag name");
         }
 
         if (userId != null) {
@@ -50,7 +45,7 @@ public class EvaluationService {
         }
 
         Integer rollout = flag.getRolloutPercentage();
-        if (rollout != null && rollout < 100) {
+        if (rollout != null && rollout < 100 && rollout >= 0) {
             if (userId != null) {
                 int hash = Math.abs(userId.hashCode()) % 100;
                 return EvaluationResponse.builder()
