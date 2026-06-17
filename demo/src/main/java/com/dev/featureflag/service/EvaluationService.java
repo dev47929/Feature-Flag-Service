@@ -6,6 +6,7 @@ import com.dev.featureflag.entity.Override;
 import com.dev.featureflag.repository.FlagRepository;
 import com.dev.featureflag.repository.OverrideRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,11 @@ public class EvaluationService {
     private final FlagRepository flagRepository;
     private final OverrideRepository overrideRepository;
 
+    @Value("${app.environment}")
+    private String environment;
+
     public EvaluationResponse evaluate(String flagName, String userId) {
-        Flag flag = flagRepository.findByName(flagName);
+        Flag flag = flagRepository.findByNameAndEnvironment(flagName, environment);
         if (flag == null) {
             return EvaluationResponse.builder()
                     .flagName(flagName)
