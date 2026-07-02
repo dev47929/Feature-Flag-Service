@@ -1,0 +1,9 @@
+target/
+*.jar
+*.md
+.idea/
+.git/
+.mvn/
+mvnw
+mvnw.cmd
+DockerUnderstand
