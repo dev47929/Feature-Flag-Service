@@ -2,16 +2,16 @@
 
 # 🚩 Feature Flag Service
 
-**A robust, production-ready feature flag management system built with Spring Boot & Java 17.**
+**A robust, production-ready feature flag management system with a modern React dashboard.**
 
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=java&logoColor=white)](https://www.java.com/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![JWT](https://img.shields.io/badge/JWT-auth-000000?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
 [![Maven](https://img.shields.io/badge/Maven-C71A36?logo=apachemaven&logoColor=white)](https://maven.apache.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-
----
 
 **Control feature rollouts, manage user-specific overrides, and ship with confidence.**
 
@@ -29,12 +29,15 @@
 | **🔐 Auth & Security** | JWT-based authentication with BCrypt password hashing |
 | **🌍 Multi-Environment** | Separate flag configurations per environment (dev, prod, etc.) |
 | **📊 Percentage Rollouts** | Gradually roll out features to a percentage of users |
+| **⚛️ React Dashboard** | Modern UI with Tailwind CSS, demo mode, and filterable flag list |
 | **⚡ RESTful API** | Clean, consistent HTTP API with JSON request/response bodies |
 | **🗄️ PostgreSQL** | Persistent storage with JPA/Hibernate ORM |
 
 ---
 
 ## 🏗️ Tech Stack
+
+### Backend
 
 | Layer | Technology |
 |---|---|
@@ -46,6 +49,16 @@
 | **Mapping** | ModelMapper 3.1.1 |
 | **Boilerplate** | Lombok |
 
+### Frontend
+
+| Layer | Technology |
+|---|---|
+| **Language** | JavaScript (JSX) |
+| **Framework** | React 19 |
+| **Bundler** | Vite 8 |
+| **Styling** | Tailwind CSS 4 |
+| **Auth** | JWT stored in localStorage |
+
 ---
 
 ## 🚀 Getting Started
@@ -54,6 +67,7 @@
 
 - Java 17+
 - PostgreSQL running on `localhost:5432`
+- Node.js 22+
 - Maven (or use the included `./mvnw` wrapper)
 
 ### Database Setup
@@ -62,7 +76,7 @@
 CREATE DATABASE flagHub;
 ```
 
-### Run the Application
+### Run the Backend
 
 ```bash
 # Development
@@ -80,10 +94,28 @@ Or build and run:
 java -jar target/feature-flag-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 ```
 
+### Run the Frontend
+
+```bash
+cd frontend/feature-flag-ui
+npm install
+npm run dev
+```
+
+The dev server starts at `http://localhost:5173` and proxies API requests to `http://localhost:8080`.
+
 ### Run Tests
 
 ```bash
-./mvnw test
+cd demo && ./mvnw test
+```
+
+### Docker (Frontend)
+
+```bash
+cd frontend/feature-flag-ui
+docker build -t feature-flag-ui .
+docker run -p 3000:80 feature-flag-ui
 ```
 
 ---
@@ -413,51 +445,77 @@ The evaluation engine follows a precise decision tree when determining if a flag
 ## 📁 Project Structure
 
 ```
-demo/
-├── pom.xml                                    # Maven build configuration
-├── mvnw / mvnw.cmd                            # Maven wrapper scripts
-└── src/
-    ├── main/
-    │   ├── java/com/dev/featureflag/
-    │   │   ├── FeatureFlagApplication.java     # Application entry point
-    │   │   ├── config/
-    │   │   │   ├── AllConfig.java              # Bean definitions (ModelMapper)
-    │   │   │   ├── CustomUserDetailsService.java # Spring Security user loading
-    │   │   │   ├── JwtAuthFilter.java          # JWT authentication filter
-    │   │   │   ├── JwtService.java             # JWT token utilities
-    │   │   │   └── SecurityConfig.java         # Security rules & filter chain
-    │   │   ├── controller/
-    │   │   │   ├── AuthController.java         # Auth endpoints
-    │   │   │   └── FlagController.java         # Flag CRUD + evaluation
-    │   │   ├── dto/
-    │   │   │   ├── auth/
-    │   │   │   │   ├── LoginReqDto.java
-    │   │   │   │   ├── LoginResponseDto.java
-    │   │   │   │   ├── SignupReqDto.java
-    │   │   │   │   └── SignupResponseDTO.java
-    │   │   │   ├── EvaluationResponse.java
-    │   │   │   ├── FlagRequest.java
-    │   │   │   ├── FlagResponse.java
-    │   │   │   └── OverrideRequest.java
-    │   │   ├── entity/
-    │   │   │   ├── Flag.java                   # Flag entity
-    │   │   │   ├── Override.java               # User-level override entity
-    │   │   │   └── User.java                   # User entity (implements UserDetails)
-    │   │   ├── repository/
-    │   │   │   ├── FlagRepository.java
-    │   │   │   ├── OverrideRepository.java
-    │   │   │   └── UserRepo.java
-    │   │   └── service/
-    │   │       ├── AuthService.java
-    │   │       ├── EvaluationService.java
-    │   │       └── FlagService.java
-    │   └── resources/
-    │       ├── application-dev.properties       # Development configuration
-    │       └── application-prod.properties      # Production configuration
-    └── test/
-        └── java/com/dev/featureflag/
-            └── FeatureFlagApplicationTests.java # Context load test
+├── demo/                                          # Spring Boot backend
+│   ├── pom.xml
+│   ├── mvnw / mvnw.cmd
+│   └── src/
+│       ├── main/java/com/dev/featureflag/
+│       │   ├── FeatureFlagApplication.java
+│       │   ├── config/
+│       │   │   ├── AllConfig.java
+│       │   │   ├── CustomUserDetailsService.java
+│       │   │   ├── JwtAuthFilter.java
+│       │   │   ├── JwtService.java
+│       │   │   └── SecurityConfig.java
+│       │   ├── controller/
+│       │   │   ├── AdminAuthController.java
+│       │   │   ├── FlagController.java
+│       │   │   └── UserController.java
+│       │   ├── dto/
+│       │   │   ├── auth/
+│       │   │   │   ├── LoginReqDto.java
+│       │   │   │   ├── LoginResponseDto.java
+│       │   │   │   ├── SignupReqDto.java
+│       │   │   │   └── SignupResponseDTO.java
+│       │   │   ├── EvaluationResponse.java
+│       │   │   ├── FlagRequest.java
+│       │   │   ├── FlagResponse.java
+│       │   │   └── OverrideRequest.java
+│       │   ├── entity/
+│       │   │   ├── Flag.java
+│       │   │   ├── Override.java
+│       │   │   └── User.java
+│       │   ├── repository/
+│       │   │   ├── FlagRepository.java
+│       │   │   ├── OverrideRepository.java
+│       │   │   └── UserRepo.java
+│       │   └── service/
+│       │       ├── AuthService.java
+│       │       ├── EvaluationService.java
+│       │       └── FlagService.java
+│       └── resources/
+│           ├── application-dev.properties
+│           └── application-prod.properties
+│
+└── frontend/feature-flag-ui/                     # React dashboard
+    ├── Dockerfile
+    ├── package.json
+    ├── vite.config.js
+    └── src/
+        ├── main.jsx
+        ├── index.css
+        ├── App.jsx
+        ├── context/
+        │   └── AuthContext.jsx
+        └── components/
+            ├── FilterBar.jsx
+            ├── FlagCard.jsx
+            ├── FlagList.jsx
+            ├── LoginPage.jsx
+            └── SignupPage.jsx
 ```
+
+---
+
+## 🖥️ Frontend Overview
+
+The React dashboard provides:
+
+- **Authentication** — Login and signup pages with JWT token persistence in localStorage
+- **Flag Dashboard** — Lists all feature flags with environment tags, rollout percentages, and enabled/disabled status
+- **Filters** — Search by name, filter by environment, filter by enabled/disabled status
+- **Demo Mode** — Offline demo with 9 sample flags to explore the UI without a running backend
+- **Responsive Design** — Built with Tailwind CSS for a clean, responsive layout
 
 ---
 
@@ -533,23 +591,41 @@ Default connection to PostgreSQL on `localhost:5432`:
 
 ## 📦 Build
 
+### Backend
+
 ```bash
-./mvnw clean package        # Build (skips tests by default)
+cd demo
+./mvnw clean package              # Build (skips tests by default)
 ./mvnw clean package -DskipTests=false   # Build with tests
 ```
 
 Output: `demo/target/feature-flag-0.0.1-SNAPSHOT.jar`
 
+### Frontend
+
+```bash
+cd frontend/feature-flag-ui
+npm run build                     # Outputs to dist/
+npm run preview                   # Preview the production build
+```
+
 ---
 
 ## 🧪 Testing
 
+### Backend
+
 ```bash
-./mvnw test
+cd demo && ./mvnw test
 ```
 
-The test suite includes:
-- Spring context load verification
+### Frontend
+
+```bash
+cd frontend/feature-flag-ui
+npm run lint
+npm run build
+```
 
 ---
 
@@ -567,6 +643,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 <div align="center">
 
-Built with ❤️ using Spring Boot
+Built with ❤️ using Spring Boot & React
 
 </div>
