@@ -7,6 +7,7 @@ import com.dev.featureflag.entity.Flag;
 import com.dev.featureflag.entity.Override;
 import com.dev.featureflag.repository.FlagRepository;
 import com.dev.featureflag.repository.OverrideRepository;
+import io.jsonwebtoken.security.Jwks;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -74,5 +76,16 @@ public class FlagService {
         Override override = overrideRepository.findByFlagIdAndUserId(flagId, userId)
                 .orElseThrow(() -> new EntityNotFoundException("Override not found for flag " + flagId + " and user " + userId));
         overrideRepository.delete(override);
+    }
+
+    public FlagResponse getFlagId(Long id) {
+        if(!flagRepository.existsById(id)){
+            throw new EntityNotFoundException();
+        }
+
+        Flag flag = flagRepository.findById(id).orElseThrow();
+        FlagResponse flagResponse = modelMapper.map(flag , FlagResponse.class);
+
+        return flagResponse;
     }
 }
