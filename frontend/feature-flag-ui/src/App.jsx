@@ -39,6 +39,8 @@ function FlagDashboard({ demoMode }) {
       .catch(err => { setError(err.message); setLoading(false) })
   }, [demoMode])
 
+  const handleUpdateFlag = updated => setFlags(prev => prev.map(f => f.id === updated.id ? updated : f))
+
   const environments = [...new Set(flags.map(f => f.environment))]
 
   const filtered = flags.filter(f => {
@@ -76,7 +78,7 @@ function FlagDashboard({ demoMode }) {
       />
       {loading && <p className="text-center py-10 text-gray-500 text-sm">Loading...</p>}
       {error && <p className="text-center py-10 text-red-500 text-sm">Error: {error}</p>}
-      {!loading && !error && <FlagList flags={filtered} />}
+      {!loading && !error && <FlagList flags={filtered} onUpdateFlag={handleUpdateFlag} />}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import FlagCard from './FlagCard'
 
-function FlagList({ flags }) {
+function FlagList({ flags, onUpdateFlag }) {
   if (flags.length === 0) {
     return <p className="text-center py-10 text-gray-500 text-sm">No flags match your filters.</p>
   }
@@ -8,7 +8,7 @@ function FlagList({ flags }) {
   return (
     <div className="flex flex-col gap-3">
       {flags.map(flag => (
-        <FlagCard key={flag.id} flag={flag} />
+        <FlagCard key={flag.id} flag={flag} onUpdateFlag={onUpdateFlag} />
       ))}
     </div>
   )
