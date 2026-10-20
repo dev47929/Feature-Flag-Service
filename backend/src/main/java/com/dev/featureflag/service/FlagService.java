@@ -1,5 +1,6 @@
 package com.dev.featureflag.service;
 
+import com.dev.featureflag.Exception.ResourceNotFoundException;
 import com.dev.featureflag.dto.FlagRequest;
 import com.dev.featureflag.dto.FlagResponse;
 import com.dev.featureflag.dto.OverrideRequest;
@@ -42,7 +43,7 @@ public class FlagService {
 
     public FlagResponse updateFlag(Long id, FlagRequest request) {
         Flag flag = flagRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Flag not found: " + id));
+                .orElseThrow(()->new ResourceNotFoundException("The resource could not be found. ID :" + id));
         if (request.getName() != null) flag.setName(request.getName());
         if (request.getDescription() != null) flag.setDescription(request.getDescription());
         flag.setEnabled(request.isEnabled());
@@ -74,16 +75,12 @@ public class FlagService {
 
     public void removeOverride(Long flagId, String userId) {
         Override override = overrideRepository.findByFlagIdAndUserId(flagId, userId)
-                .orElseThrow(() -> new EntityNotFoundException("Override not found for flag " + flagId + " and user " + userId));
+                .orElseThrow(()->new ResourceNotFoundException("The resource could not be found. ID :" + id));
         overrideRepository.delete(override);
     }
 
     public FlagResponse getFlagId(Long id) {
-        if(!flagRepository.existsById(id)){
-            throw new EntityNotFoundException();
-        }
-
-        Flag flag = flagRepository.findById(id).orElseThrow();
+        Flag flag = flagRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("The resource could not be found. ID :" + id));
         FlagResponse flagResponse = modelMapper.map(flag , FlagResponse.class);
 
         return flagResponse;

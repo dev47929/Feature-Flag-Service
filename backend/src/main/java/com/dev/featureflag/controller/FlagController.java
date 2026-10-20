@@ -6,6 +6,7 @@ import com.dev.featureflag.dto.OverrideRequest;
 import com.dev.featureflag.service.FlagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,4 +43,11 @@ public class FlagController {
         flagService.removeOverride(id, userId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FlagResponse> getFlagWithId(@PathVariable Long id){
+        flagService.getFlagId(id);
+        return ResponseEntity.ok().build();
+    };
+
 }
