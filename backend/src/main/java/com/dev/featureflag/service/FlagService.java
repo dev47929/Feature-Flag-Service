@@ -61,9 +61,7 @@ public class FlagService {
     }
 
     public void addOverride(Long flagId, OverrideRequest request) {
-        if (!flagRepository.existsById(flagId)) {
-            throw new EntityNotFoundException("Flag not found: " + flagId);
-        }
+        if(!flagRepository.existsById(flagId))throw new ResourceNotFoundException("The resource could not be found. ID :" + flagId);
 
         Override override = new Override();
         override.setFlagId(flagId);
@@ -75,7 +73,7 @@ public class FlagService {
 
     public void removeOverride(Long flagId, String userId) {
         Override override = overrideRepository.findByFlagIdAndUserId(flagId, userId)
-                .orElseThrow(()->new ResourceNotFoundException("The resource could not be found. ID :" + id));
+                .orElseThrow(()->new ResourceNotFoundException("The resource could not be found. ID :" + flagId));
         overrideRepository.delete(override);
     }
 
